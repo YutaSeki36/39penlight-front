@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-interface ColorBoxProps {
+export interface ColorBoxProps {
     colorCode: string;
     idolName: string;
   }
