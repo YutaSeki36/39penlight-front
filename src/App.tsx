@@ -8,18 +8,23 @@ const App: React.FC<any> = props => {
   return (
     <div className="App">
       <header>
-       <p>39ペンライト</p>
+       <h2>39ペンライト</h2>
       </header>
-
-      {idolListStatus.idols.map(idol=> {
-        return(
-          <ColorBox
-          key={idol.colorCode}
-          colorCode={idol.colorCode}
-          idolName={idol.name}
-        />
-        )
-      })}
+      <div className="global_wrapper">
+        <div>
+          <ul className="color_box">
+            {idolListStatus.idols.map(idol=> {
+              return(
+                <ColorBox
+                key={idol.colorCode}
+                colorCode={idol.colorCode}
+                idolName={idol.name}
+              />
+              )
+            })}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
@@ -75,7 +80,10 @@ const initData: Idols = {
       name: "かおり",
       colorCode: "#ea5b76",
     },
-
+    {
+      name: "かおり",
+      colorCode: "#ea5b76",
+    },
   ]
 }
 

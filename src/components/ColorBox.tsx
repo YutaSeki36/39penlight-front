@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './ColorBox.css';
 
 export interface ColorBoxProps {
     colorCode: string;
@@ -7,10 +8,10 @@ export interface ColorBoxProps {
 
 const ColorBox: React.FC<ColorBoxProps> = props => {
     return(
-        <div>
-            <p>{props.colorCode}</p>
-            <p>{props.idolName}</p>
-        </div>
+        <li className="color-box-li">
+            <div className="color-box-color" style={{backgroundColor: props.colorCode}}></div>
+            <span>{props.idolName}</span>
+        </li>
     )
 }
 
