@@ -24,7 +24,7 @@ const request = (options: any) => {
 
 export function changePenlightColor(colorCode: PostObject) {
     let url: string = API_BASE_URL!
-    if (API_BASE_URL!.includes('undefined')) {
+    if (url && url!.includes('undefined')) {
         url = API_BASE_URL!.replace('undefined','')
     }
 
