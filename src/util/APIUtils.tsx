@@ -24,7 +24,7 @@ const request = (options: any) => {
 
 export function changePenlightColor(colorCode: PostObject) {
     return request({
-      url: API_BASE_URL + "/color",
+      url: API_BASE_URL,
       method: "POST",
       body: JSON.stringify(colorCode)
     });
