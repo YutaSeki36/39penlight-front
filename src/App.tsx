@@ -3,7 +3,7 @@ import './App.css';
 import ColorBox from './components/ColorBox'
 
 const App: React.FC<any> = props => {
-  const [idolListStatus, setIdolListStatus] = useState<Idols>(initData)
+  const [idolListStatus] = useState<Idols>(initData)
 
   return (
     <div className="App">
