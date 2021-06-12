@@ -29,7 +29,7 @@ export function changePenlightColor(colorCode: PostObject) {
     }
 
     return request({
-      url: url,
+      url: url+'/color',
       method: "POST",
       body: JSON.stringify(colorCode)
     });
