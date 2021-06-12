@@ -23,8 +23,13 @@ const request = (options: any) => {
   };
 
 export function changePenlightColor(colorCode: PostObject) {
+    let url: string = API_BASE_URL!
+    if (API_BASE_URL!.includes('undefined')) {
+        url = API_BASE_URL!.replace('undefined','')
+    }
+
     return request({
-      url: API_BASE_URL,
+      url: url,
       method: "POST",
       body: JSON.stringify(colorCode)
     });
