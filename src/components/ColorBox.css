@@ -13,3 +13,40 @@
   border-radius: 10%;
   margin-bottom: 8px;
 }
+
+.modal-check-content {
+  height: 60%;
+  font-weight: 700;
+}
+
+.btn-box {
+  /* text-align: center; */
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.btn {
+  display: inline-block;
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin-top: auto;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.cancel {
+  border: 1px solid #808080;
+  color: #808080;
+}
+
+.ok {
+  background-color: #1a7ff5;
+  color: #fff;
+}
