@@ -13,10 +13,10 @@ const App: React.FC<any> = props => {
       <div className="global_wrapper">
         <div>
           <ul className="color_box">
-            {idolListStatus.idols.map(idol=> {
+            {idolListStatus.idols.map((idol, i)=> {
               return(
                 <ColorBox
-                key={idol.colorCode}
+                key={i}
                 colorCode={idol.colorCode}
                 idolName={idol.name}
               />

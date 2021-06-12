@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "../config";
 
-type PostObject = {
+export type PostObject = {
     color_code: string
 };
 
