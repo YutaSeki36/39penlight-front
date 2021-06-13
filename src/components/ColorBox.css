@@ -4,8 +4,10 @@
   margin-right: 10px;
 }
 
-.color-box-li:nth-of-type(4n) {
-  margin-right: 0;
+@media (max-width: 950px) {
+  .color-box-li:nth-of-type(4n) {
+    margin-right: 0;
+  }
 }
 
 @media (max-width: 360px) {
