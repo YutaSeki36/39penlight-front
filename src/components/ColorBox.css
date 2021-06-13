@@ -4,6 +4,10 @@
   margin-right: 10px;
 }
 
+.color-box-li:nth-of-type(4n) {
+  margin-right: 0;
+}
+
 .color-box-li span {
   font-size: 14px;
 }
