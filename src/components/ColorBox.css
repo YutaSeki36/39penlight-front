@@ -8,6 +8,15 @@
   margin-right: 0;
 }
 
+@media (max-width: 360px) {
+  .color-box-li:nth-of-type(4n) {
+    margin-right: 10px;
+  }
+  .color-box-li:nth-of-type(3n) {
+    margin-right: 0;
+  }
+}
+
 .color-box-li span {
   font-size: 14px;
 }
