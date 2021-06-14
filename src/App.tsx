@@ -1,9 +1,64 @@
 import React, { useState } from 'react';
+import Modal from 'react-modal';
 import './App.css';
 import ColorBox from './components/ColorBox'
+import {changePenlightColor, PostObject} from './util/APIUtils'
+
+const customStyles = {
+  content : {
+      width                 : '60%',
+      height: '100px',
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+}
+
+interface ModalState {
+  colorCode: string;
+  idolName: string;
+  isOpen: boolean;
+}
+
+Modal.setAppElement('#root')
 
 const App: React.FC<any> = props => {
   const [idolListStatus] = useState<Idols>(initData)
+
+  const [modalState,setIsOpen] = useState<ModalState>({colorCode: "", idolName: "", isOpen: false});
+  const [errorState, setErrorState] = useState<string>("");
+
+  function openModal(colorCode: string, idolName: string) {
+    setIsOpen({
+      colorCode: colorCode,
+      idolName: idolName,
+      isOpen: true
+    });
+  }
+
+  function closeModal() {
+      setIsOpen({
+        colorCode: "",
+        idolName: "",
+        isOpen: false
+      });
+      setErrorState("");
+  }
+
+  const callApi = () => {
+      const po: PostObject = {color_code: modalState.colorCode}
+      changePenlightColor(po)
+      .then(response => {
+          closeModal()
+        })
+        .catch(error => {
+          if (error.name !== "AbortError") console.log(`error: ${error}`);
+          setErrorState("通信に失敗しました")
+        });
+  }
 
   return (
     <div className="App">
@@ -19,11 +74,27 @@ const App: React.FC<any> = props => {
                 key={i}
                 colorCode={idol.colorCode}
                 idolName={idol.name}
+                setIsOpen={openModal}
               />
               )
             })}
           </ul>
         </div>
+        <Modal
+          isOpen={modalState.isOpen}
+          onRequestClose={closeModal}
+          contentLabel=""
+          style={customStyles}
+          >
+          <div className="modal-check-content">
+              ペンライトの色を<span style={{color: modalState.colorCode}}>{modalState.idolName}</span>に変更します
+          </div>
+          {errorState && <span>{errorState}</span>}
+          <div className="btn-box">
+              <button className="btn cancel" onClick={closeModal}>キャンセル</button>
+              <button className="btn ok" onClick={callApi}>決定</button>
+          </div>
+        </Modal>
       </div>
     </div>
   );
