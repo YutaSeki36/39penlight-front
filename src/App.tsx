@@ -7,7 +7,7 @@ import {changePenlightColor, PostObject} from './util/APIUtils'
 const customStyles = {
   content : {
       width                 : '60%',
-      height: '100px',
+      height: '160px',
       top                   : '50%',
       left                  : '50%',
       right                 : 'auto',
@@ -23,10 +23,13 @@ interface ModalState {
   isOpen: boolean;
 }
 
+type FlushType = "normal" | "wave";
+
 Modal.setAppElement('#root')
 
 const App: React.FC<any> = props => {
   const [idolListStatus] = useState<Idols>(initData)
+  const [flushTypeStatus, setFlushTypeStatus] = useState<FlushType>("normal")
 
   const [modalState,setIsOpen] = useState<ModalState>({colorCode: "", idolName: "", isOpen: false});
   const [errorState, setErrorState] = useState<string>("");
@@ -48,8 +51,18 @@ const App: React.FC<any> = props => {
       setErrorState("");
   }
 
+  const flushTypeToNumber = (): number => {
+    switch(flushTypeStatus){
+      case "normal":
+        return 1
+      case "wave":
+        return 2
+    }
+  }
+
+
   const callApi = () => {
-      const po: PostObject = {color_code: modalState.colorCode}
+      const po: PostObject = {color_code: modalState.colorCode, flush_type: flushTypeToNumber()}
       changePenlightColor(po)
       .then(response => {
           closeModal()
@@ -59,6 +72,10 @@ const App: React.FC<any> = props => {
           setErrorState("通信に失敗しました")
         });
   }
+
+  const handleChange = (e: any) => {
+    setFlushTypeStatus(e.target.value)
+  };
 
   return (
     <div className="App">
@@ -88,6 +105,29 @@ const App: React.FC<any> = props => {
           >
           <div className="modal-check-content">
               ペンライトの色を<span style={{color: modalState.colorCode}}>{modalState.idolName}</span>に変更します
+          </div>
+          <div className="flush-type-box">
+            光り方
+            <div className="flush-type-box-input">
+            <label>
+              <input
+                type="radio"
+                value="normal"
+                onChange={handleChange}
+                checked={flushTypeStatus === "normal"}
+              />
+            normal
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="wave"
+                onChange={handleChange}
+                checked={flushTypeStatus === "wave"}
+              />
+              wave
+            </label>
+            </div>
           </div>
           {errorState && <span>{errorState}</span>}
           <div className="btn-box">

@@ -2,6 +2,7 @@ import { API_BASE_URL } from "../config";
 
 export type PostObject = {
     color_code: string
+    flush_type: number
 };
 
 const request = (options: any) => {

@@ -222,6 +222,23 @@ ul {
   width: 70px;
 }
 
+.flush-type-box {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.flush-type-box-input {
+  margin-top: 10px;
+}
+
+input {
+  margin-right: 0.25em;
+}
+
+label + label {
+  margin-left: 1em;
+}
+
 @media (max-width: 950px) {
   .color_box {
     padding: 0;
