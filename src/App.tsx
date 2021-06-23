@@ -23,7 +23,7 @@ interface ModalState {
   isOpen: boolean;
 }
 
-type FlushType = "normal" | "wave";
+type FlushType = "normal" | "wave" | "bound";
 
 Modal.setAppElement('#root')
 
@@ -57,6 +57,8 @@ const App: React.FC<any> = props => {
         return 1
       case "wave":
         return 2
+      case "bound":
+        return 3
     }
   }
 
