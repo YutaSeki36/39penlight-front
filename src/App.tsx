@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './App.css';
 import ColorBox from './components/ColorBox'
-import {changePenlightColor, PostObject} from './util/APIUtils'
+import { changePenlightColor, PostObject } from './util/APIUtils'
 
 const customStyles = {
-  content : {
-      width                 : '60%',
-      height: '160px',
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)'
-    }
+  content: {
+    width: '60%',
+    height: '160px',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
 }
 
 interface ModalState {
@@ -31,7 +31,7 @@ const App: React.FC<any> = props => {
   const [idolListStatus] = useState<Idols>(initData)
   const [flushTypeStatus, setFlushTypeStatus] = useState<FlushType>("normal")
 
-  const [modalState,setIsOpen] = useState<ModalState>({colorCode: "", idolName: "", isOpen: false});
+  const [modalState, setIsOpen] = useState<ModalState>({ colorCode: "", idolName: "", isOpen: false });
   const [errorState, setErrorState] = useState<string>("");
 
   function openModal(colorCode: string, idolName: string) {
@@ -43,16 +43,16 @@ const App: React.FC<any> = props => {
   }
 
   function closeModal() {
-      setIsOpen({
-        colorCode: "",
-        idolName: "",
-        isOpen: false
-      });
-      setErrorState("");
+    setIsOpen({
+      colorCode: "",
+      idolName: "",
+      isOpen: false
+    });
+    setErrorState("");
   }
 
   const flushTypeToNumber = (): number => {
-    switch(flushTypeStatus){
+    switch (flushTypeStatus) {
       case "normal":
         return 1
       case "wave":
@@ -64,15 +64,15 @@ const App: React.FC<any> = props => {
 
 
   const callApi = () => {
-      const po: PostObject = {color_code: modalState.colorCode, flush_type: flushTypeToNumber()}
-      changePenlightColor(po)
+    const po: PostObject = { color_code: modalState.colorCode, flush_type: flushTypeToNumber() }
+    changePenlightColor(po)
       .then(response => {
-          closeModal()
-        })
-        .catch(error => {
-          if (error.name !== "AbortError") console.log(`error: ${error}`);
-          setErrorState("通信に失敗しました")
-        });
+        closeModal()
+      })
+      .catch(error => {
+        if (error.name !== "AbortError") console.log(`error: ${error}`);
+        setErrorState("通信に失敗しました")
+      });
   }
 
   const handleChange = (e: any) => {
@@ -82,19 +82,19 @@ const App: React.FC<any> = props => {
   return (
     <div className="App">
       <header>
-       <h2>39ペンライト</h2>
+        <h2>39ペンライト</h2>
       </header>
       <div className="global_wrapper">
         <div>
           <ul className="color_box">
-            {idolListStatus.idols.map((idol, i)=> {
-              return(
+            {idolListStatus.idols.map((idol, i) => {
+              return (
                 <ColorBox
-                key={i}
-                colorCode={idol.colorCode}
-                idolName={idol.name}
-                setIsOpen={openModal}
-              />
+                  key={i}
+                  colorCode={idol.colorCode}
+                  idolName={idol.name}
+                  setIsOpen={openModal}
+                />
               )
             })}
           </ul>
@@ -104,37 +104,46 @@ const App: React.FC<any> = props => {
           onRequestClose={closeModal}
           contentLabel=""
           style={customStyles}
-          >
+        >
           <div className="modal-check-content">
-              ペンライトの色を<span style={{color: modalState.colorCode}}>{modalState.idolName}</span>に変更します
+            ペンライトの色を<span style={{ color: modalState.colorCode }}>{modalState.idolName}</span>に変更します
           </div>
           <div className="flush-type-box">
             光り方
             <div className="flush-type-box-input">
-            <label>
-              <input
-                type="radio"
-                value="normal"
-                onChange={handleChange}
-                checked={flushTypeStatus === "normal"}
-              />
-            normal
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="wave"
-                onChange={handleChange}
-                checked={flushTypeStatus === "wave"}
-              />
-              wave
-            </label>
+              <label>
+                <input
+                  type="radio"
+                  value="normal"
+                  onChange={handleChange}
+                  checked={flushTypeStatus === "normal"}
+                />
+                normal
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="wave"
+                  onChange={handleChange}
+                  checked={flushTypeStatus === "wave"}
+                />
+                wave
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="bound"
+                  onChange={handleChange}
+                  checked={flushTypeStatus === "bound"}
+                />
+                bound
+              </label>
             </div>
           </div>
           {errorState && <span>{errorState}</span>}
           <div className="btn-box">
-              <button className="btn cancel" onClick={closeModal}>キャンセル</button>
-              <button className="btn ok" onClick={callApi}>決定</button>
+            <button className="btn cancel" onClick={closeModal}>キャンセル</button>
+            <button className="btn ok" onClick={callApi}>決定</button>
           </div>
         </Modal>
       </div>
